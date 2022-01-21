@@ -46,8 +46,18 @@ public class MyMain {
     // countBigDigits(99999) => 5
     // countBigDigits(521931) => 2
     public static int countBigDigits(int x) {
-        // YOUR CODE HERE
-        return -1;
+        if (x == 0) {
+            return 0;
+        }
+        // Recursive call
+        else {
+            if (x%10>=5) {
+                return 1 + countBigDigits(x / 10);
+            }
+            else{
+                return countBigDigits(x / 10);
+            }
+        }
     }
 
     // Write a method that uses recursion to calculate whether
@@ -64,8 +74,25 @@ public class MyMain {
     // moreOddThanEven(99999) => true because 5 odd and 0 even
     // moreOddThanEven(521931) => true because 5 odd and 1 even
     public static boolean moreOddThanEven(int x) {
-        // YOUR CODE HERE
-        return false;
+        return (moreOddThanEvenTR(x,0,0));
+    }
+    public static boolean moreOddThanEvenTR(int x,int odd,int even) {
+        if (x == 0) {
+            if (odd>even){
+                return true;
+            }
+            return false;
+        }
+
+        // Recursive call
+        else {
+            if (x%2!=0) {
+                return moreOddThanEvenTR(x/10,odd+1,even);
+            }
+            else{
+                return moreOddThanEvenTR(x/10,odd,even+1);
+            }
+        }
     }
 
     // This might be helpful to get started:
@@ -81,14 +108,20 @@ public class MyMain {
     // isPalindrome("madam") => true
     // isPalindrome("racecars") => false
     public static boolean isPalindrome(String str) {
-        // YOUR CODE HERE
-        return false;
+        if (str.equals("")){
+            return true;
+        }
+        if (str.length()==1){
+            return true;
+        }
+        if(str.charAt(0)!=str.charAt(str.length()-1)){
+            return false;
+        }
+        else{
+            return isPalindrome(str.substring(1,str.length()-1));
+        }
+
     }
-
-
-
-
-
     // Methods for homework:
 
     // This method adds up the values of all digits
@@ -98,8 +131,17 @@ public class MyMain {
     // countBigDigits(99999) => 45
     // countBigDigits(521931) => 21
     public static int addDigits(int x) {
-        // YOUR CODE HERE
-        return -1;
+        return(addDigitsTR(x,0));
+    }
+    public static int addDigitsTR(int x,int sum) {
+        if (x == 0) {
+            return sum;
+        }
+        // Recursive call
+        else {
+            return addDigitsTR(x / 10,sum+x%10);
+
+        }
     }
 
     // Write a method that is given a String containing a single pair
@@ -112,8 +154,22 @@ public class MyMain {
     // parenTrim("x(hello)") => "(hello)"
     // parenTrim("(xy)1") => "(xy)"
     public static String parenTrim(String str) {
-        // YOUR CODE HERE
-        return "";
+        if (str.equals("")||str.length()<3){
+            return str;
+        }
+        if (str.charAt(str.length()-1)==')'&&str.charAt(0)=='('){
+            return str;
+        }
+        if (str.charAt(0)=='('){
+            return (parenTrim(str.substring(0,str.length()-1)));
+        }
+        else if (str.charAt(str.length()-1)==')'){
+            return (parenTrim(str.substring(1)));
+        }
+        else{
+            return (parenTrim(str.substring(1,str.length()-1)));
+        }
+
     }
 
     // This method returns the orignal string reversed;
@@ -122,8 +178,13 @@ public class MyMain {
     // reverse("desserts") => stressed
     // reverse("racecar") => racecar
     public static String reverse(String str) {
-        // YOUR CODE HERE
-        return "";
+        if (str.equals("")||str.length()==1){
+            return str;
+        }
+        else{
+            return (str.charAt(str.length()-1)+reverse(str.substring(1,str.length()-1))+str.charAt(0));
+        }
+
     }
 
 
